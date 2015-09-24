@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-
+  post "students/:id/send_schedule_mail" => "students#send_schedule_mail"
   resources :schedules
 
   resources :students

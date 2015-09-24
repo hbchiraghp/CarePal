@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :find_student, only: [:show, :edit, :update, :destroy]
+  before_action :find_student, only: [:show, :edit, :update, :destroy,:send_schedule_mail]
   
   def index
     @students = Student.active.paginate(:page => params[:page], :per_page => 5)    
@@ -35,6 +35,15 @@ class StudentsController < ApplicationController
   def destroy
     @student.soft_delete!
     redirect_to students_url, notice: 'Student was successfully destroyed.'
+  end
+
+  def send_schedule_mail
+    if params[:email].present?
+      StudentMailer.student_schedule(@student,params[:email]).deliver 
+      redirect_to @student, notice: 'Email sent successfully.'
+    else
+      redirect_to @student, notice: 'Enter valid email.'
+    end
   end
 
   private

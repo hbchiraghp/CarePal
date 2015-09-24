@@ -2,7 +2,7 @@ class StudentsController < ApplicationController
   before_action :find_student, only: [:show, :edit, :update, :destroy]
   
   def index
-    @students = Student.all    
+    @students = Student.active.paginate(:page => params[:page], :per_page => 5)    
   end
   
   def show
@@ -40,7 +40,7 @@ class StudentsController < ApplicationController
   private
     
     def find_student
-      @student = Student.find(params[:id])
+      @student = Student.active.find(params[:id])
       rescue ActiveRecord::RecordNotFound
 			  flash[:notice] = "Record not found."
 			  redirect_to :action => 'index'

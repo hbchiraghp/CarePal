@@ -1,6 +1,8 @@
 class Student < ActiveRecord::Base
   
   ############# Scopes ##############
+    scope :active, -> { where(deleted: false,status: 1) }
+    scope :inactive, -> { where(status: 0,deleted: false) }  
     scope :deleted, -> { where(deleted: true) } 
 
   ############## Enums ##############
@@ -20,6 +22,8 @@ class Student < ActiveRecord::Base
 
   ############## Associations ########
     has_many :schedules
+
+  mount_uploader :profile_picture, AvatarUploader
 
   ############## Methods ############
   	def initialize(attributes=nil, *args)

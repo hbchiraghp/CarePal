@@ -43,3 +43,17 @@ group :development, :test do
   gem 'spring'
 end
 
+group :test do
+  gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers', require: false
+  gem 'factory_girl_rails'
+  gem 'faker'
+  gem 'cucumber'
+  gem 'cucumber-rails'
+  gem 'database_cleaner'
+end
+
+group :development , :test do
+  gem 'rspec-rails'
+end
+
+

@@ -1,8 +1,8 @@
 class StudentsController < ApplicationController
-	before_action :get_student, only: [:show, :edit, :update, :destroy]
+	before_action :get_student, only: [:show, :edit, :update, :destroy,:send_schedule_mail]
   
   def index
-  	@students = Student.all
+  	@students = Student.active.paginate(page: params[:page], per_page: 5)
   end
 
   def new
@@ -31,6 +31,16 @@ class StudentsController < ApplicationController
 	  end
 	end
 
+	def send_schedule_mail
+    if params[:email].present?
+      StudentMailer.student_schedule(@student,params[:email]).deliver 
+      redirect_to @student, notice: 'Email sent successfully.'
+    else
+      redirect_to @student, notice: 'Enter valid email.'
+    end
+  end
+
+
   def show
   	
   end
@@ -45,7 +55,7 @@ end
 
 private
 	def get_student
-    @student = Student.find(params[:id])
+    @student = Student.active.find(params[:id])
     rescue ActiveRecord::RecordNotFound
 		  flash[:notice] = "Record not found."
 		  redirect_to :action => 'index'

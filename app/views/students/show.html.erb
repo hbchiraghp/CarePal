@@ -1,74 +1,141 @@
-<p>
-  <strong>Student Number:</strong>
-  <%= @student.student_number%>
-</p>
+<div class="form-container">
+  <h2> Student Details <span>Access your Account Details</span> </h2>
 
-<p>
-  <strong>UserName:</strong>
-  <%= @student.username%>
-</p>
- 
-<p>
-  <strong>FirstName:</strong>
-  <%= @student.first_name%>
-</p>
+  <div class="form-data user-detail">
+    <div class="row">
+      <div class="col-md-9">
+        <!-- <img src="/assets/no-image.jpg" alt="no-img" class="pro-pic"> -->
+        <%= image_tag(@student.profile_picture.url(:thumb),class: "pro-pic") %>
+        <div class="user-contact-detail">
+            <h3><%="#{@student.first_name} #{@student.last_name}" %></h3> 
+            <p class="email"><%= @student.email %></p>
+        </div>    
+      </div>  
 
-<p>
-  <strong>LastName:</strong>
-  <%= @student.last_name%>
-</p>
-
-	<p>
-  <strong>Email:</strong>
-  <%= @student.email%>
-</p>
- 
- 
-<p>
-  <strong>Gender:</strong>
-  <%= @student.gender %>
-</p>
-
-<p>
-  <strong>DOB:</strong>
-  <%= @student.dob%>
-</p>
-
-<p>
-  <strong>Address1:</strong>
-  <%= @student.address_1%>
-</p>
-
-<p>
-  <strong>Address2:</strong>
-  <%= @student.address_2%>
-</p>
-
-<p>
-  <strong>City:</strong>
-  <%= @student.city%>
-</p>
-
-<p>
-  <strong>Country:</strong>
-  <%= @student.country%>
-</p>
-
-<p>
-  <strong>Postcode:</strong>
-  <%= @student.postcode%>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @student.status%>
-</p>
+      <div class="col-md-3 text-right">
+        <div class="user-detail-status">
+          <p><span>Username:</span> <span class="status-value"><%= @student.username %></span></p>
+          <p><span>Status:</span> <span class="status-value"><%= @student.status %></span></p>
+          <p><span>Student Number:</span> <span class="status-value"><%= @student.student_number %></span></p>                        
+        </div>  
+      </div>  
+    </div>  
 
 
+  <div class="row">
+      <div class="col-md-6">
+        <span class="user-detail-label">Gender:</span>
+        <span class="user-detail-value"><%= @student.gender %></span>
+      </div>
 
-<%= link_to 'Edit', edit_student_path(@student) %> 
-		
-		
-		
-		
-		
+      <div class="col-md-6">
+        <span class="user-detail-label">Dob:</span>
+        <span class="user-detail-value"><%= @student.dob %></span>
+      </div>
+   </div>
+  <div class="row">
+    <div class="col-md-6">
+      <span class="user-detail-label">Address 1:</span>
+      <span class="user-detail-value"><%= @student.address_1 %></span>
+    </div>
+
+    <!-- <div class="col-md-6">
+      <span class="user-detail-label">Address 2:</span>
+      <span class="user-detail-value"><%= @student.address_2 %></span>
+    </div> -->
+
+    <div class="col-md-6">
+      <span class="user-detail-label">City:</span>
+      <span class="user-detail-value"><%= @student.city %></span>
+    </div>
+  </div>    
+
+  <div class="row">
+    <div class="col-md-6">
+      <span class="user-detail-label">Country:</span>
+      <span class="user-detail-value"><%= @student.country %></span>
+    </div>
+
+    <div class="col-md-6">
+      <span class="user-detail-label">Post code:</span>
+      <span class="user-detail-value"><%= @student.postcode %></span>
+    </div>
+  </div>
+</div>
+
+
+<h3>Email the Shedule</h3>
+<%= form_tag({:action=>"send_schedule_mail"}, method: "post") do %>
+  <%= hidden_field_tag :id,@student.id %>
+  <div class="user-input email-input">
+    <%= text_field_tag :email,params[:email] ,placeholder: "Enter Email" , class: "input-xlarge",:size=>"50"%>                            
+  </div>  
+  <div class="send-btn">                    
+    <%= submit_tag "Send" ,:class=>"submit-form btn btn-success" %>                             
+  </div>
+<% end %>
+
+
+<% if flash[:notice]  %>
+  <%= flash[:notice] %>
+<br><br>
+<% end %>  
+<% if @student.schedules.present? %>
+  <div class="row user-schedule">
+    <div class="col-md-12">
+        <div class="inner-grey-title">
+          <h5>Schedules <span class="title-notify"><%= @student.schedules.count %></span></h5>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Course</th>
+                  <th>Start&nbsp;Date</th>
+                  <th>End Date</th>
+                  <th>Start Time</th>
+                  <th>End Time</th>
+                  <th>Location</th>
+                  <th>Faculty</th>
+                  <th>Delete</th>
+                  <th>Edit</th>
+                </tr>
+              </thead>  
+              <tbody>
+                <% @student.schedules.each do |schedule| %>
+                  <tr>
+                    <td> <%= schedule.course %></td>
+                    <td> <%= schedule.start_date %></td>
+                    <td> <%= schedule.end_date %></td>
+                    <td> <%= format_time(schedule.start_time) %></td>
+                    <td> <%= format_time(schedule.end_time) %></td>
+                    <td> <%= schedule.location %></td>
+                    <td> <%= schedule.faculty %></td>
+                    <td align="center"><%= link_to 'Delete', schedule_path(schedule),
+                          method: :delete,
+                          data: { confirm: 'Are you sure?' } %></td>
+                    <td><%= link_to 'Edit', edit_schedule_path(schedule) %> </td>      
+                  </tr>
+               <% end %>      
+             </tbody>
+            </table>
+          </div>
+        </div>
+      </div>      
+<% else %> 
+  <p>  No schedules created yet! </p>
+<% end %> 
+
+ <div class="row">
+    <div class="col-md-12">
+        <div class="button-group pull-right"> 
+            <%= link_to 'Add Schedule', new_schedule_path(:student_id => @student.id),:class => 'cmn-btn purple' %>
+            <%= link_to 'Edit', edit_student_path(@student),:class => 'cmn-btn grey' %> 
+        </div>
+      </div>
+    </div>
+</div>
+
+            	
+            	
+            	

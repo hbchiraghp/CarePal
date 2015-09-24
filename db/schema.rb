@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150924061338) do
+ActiveRecord::Schema.define(version: 20150924130902) do
+
+  create_table "schedules", force: :cascade do |t|
+    t.integer  "student_id", limit: 4
+    t.string   "course",     limit: 160, default: "", null: false
+    t.date     "start_date"
+    t.date     "end_date"
+    t.time     "start_time"
+    t.time     "end_time"
+    t.string   "location",   limit: 255, default: "", null: false
+    t.string   "faculty",    limit: 255
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "schedules", ["course"], name: "index_schedules_on_course", using: :btree
+  add_index "schedules", ["student_id"], name: "index_schedules_on_student_id", using: :btree
 
   create_table "students", force: :cascade do |t|
     t.string   "student_number",  limit: 20,  default: "",    null: false

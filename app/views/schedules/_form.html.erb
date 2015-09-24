@@ -1,0 +1,54 @@
+<%= form_for(@schedule) do |f| %>
+  <% if @schedule.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@schedule.errors.count, "error") %> prohibited this schedule from being saved:</h2>
+
+      <ul>
+      <% @schedule.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  
+  <p>
+    <%= f.label :student_id %><br>
+    <%= collection_select(:schedule, :student_id, Student.all, :id, :student_number)  %><br><br>
+  </p>
+  <p>
+    <%= f.label :course %><br>
+    <%= f.text_field :course %>
+  </p>
+ 
+  <p>
+    <%= f.label :start_date %><br>
+    <%= f.text_field :start_date, :class => 'datepicker' %>
+  </p>
+  <p>
+    <%= f.label :end_date %><br>
+    <%= f.text_field :end_date, :class => 'datepicker' %><br><br>
+  </p>
+  
+  <p>
+    <%= f.label :start_time %><br>
+    <%= f.text_field :start_time %><br><br>
+  </p>
+  <p>
+    <%= f.label :end_time %><br>
+    <%= f.text_field :end_time %><br><br>
+  </p>
+  <p>
+    <%= f.label :location %><br>
+    <%= f.text_field :location %><br><br>
+  </p>
+  <p>
+    <%= f.label :faculty %><br>
+    <%= f.text_field :faculty %><br><br>
+  </p>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+

@@ -1,5 +1,12 @@
 class Student < ActiveRecord::Base
 	#**** Scopes declaration ******
+	
+	mount_uploader :profile_picture, AvatarUploader
+	STUDENTS = Student.pluck(:student_number)
+	has_many :schedules
+
+	scope :active, -> { where(deleted: false,status: 1) }
+  scope :inactive, -> { where(status: 0,deleted: false) }  
 	scope :deleted, -> { where(deleted: true) }
 
 	#**** Enums declaration ******
@@ -31,6 +38,8 @@ class Student < ActiveRecord::Base
   def mark_for_delete!
     update_attribute(:deleted, true)
   end
+
+
 
 
 end

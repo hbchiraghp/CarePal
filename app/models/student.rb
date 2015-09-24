@@ -8,15 +8,18 @@ class Student < ActiveRecord::Base
     enum status: [ :active, :inactive ]
 
   ############## Validations ########
-    validates :email,format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/, message: "Invalid email format" } , uniqueness: true,length: { in: 0..60}
+    validates :email,format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/, message: "Invalid email format" } , uniqueness: true,length: { in: 0..60}, on: :create
     validates :first_name,:last_name,:username,presence: true, length: { in: 0..30 }
     validates :gender, inclusion: { in: ['male', 'female'] }
     validates :status, inclusion: { in: ['active', 'inactive'] }
-    validates :username, uniqueness: true
+    validates :username, uniqueness: true, on: :create
     validates :student_number,uniqueness: true,length: { in: 0..20 }
     validates :postcode, length: { in: 0..10} 
     validates :address_1,:address_2, length: { in: 0..255}
     validates :city,:country, length: { maximum: 50, too_long: "%{count} characters is the maximum allowed" }  
+
+  ############## Associations ########
+    has_many :schedules
 
   ############## Methods ############
   	def initialize(attributes=nil, *args)

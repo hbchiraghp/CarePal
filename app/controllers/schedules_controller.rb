@@ -22,7 +22,7 @@ class SchedulesController < ApplicationController
     if @schedule.save
       redirect_to @schedule.student, notice: 'Schedule was successfully created.'
     else
-      render :new
+      redirect_to @schedule.student, notice: 'Please fill all the fields correctly.'
     end    
   end
 

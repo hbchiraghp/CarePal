@@ -69,6 +69,10 @@
   <%= @student.deleted%>
 </p>
 
+<% if flash[:notice]  %>
+  <%= flash[:notice] %>
+<% end %>  
+
 <% if @student.schedules.present? %>
   <table cellpadding="4" border="1">
     <tbody>

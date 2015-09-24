@@ -62,17 +62,6 @@
   </div>
 </div>
 
-<h2>Email the Shedule</h2>
-<%= form_tag({:action=>"send_schedule_mail"}, method: "post") do %>
-  <%= hidden_field_tag :id,@student.id %>
-  <div class="user-input email-input">
-    <%= text_field_tag :email,params[:email] ,placeholder: "Enter Email" , class: "input-xlarge",:size=>"50"%>                            
-  </div>  
-  <div class="send-btn">                    
-    <%= submit_tag "Send" ,:class=>"submit-form btn btn-success" %>                             
-  </div>
-<% end %>
-
 <% if flash[:notice]  %>
   <%= flash[:notice] %>
 <br><br>

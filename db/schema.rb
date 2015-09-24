@@ -14,15 +14,23 @@
 ActiveRecord::Schema.define(version: 20150924061338) do
 
   create_table "students", force: :cascade do |t|
-    t.string   "student_number", limit: 255
-    t.string   "username",       limit: 255
-    t.string   "first_name",     limit: 255
-    t.string   "last_name",      limit: 255
-    t.string   "gender",         limit: 255
-    t.string   "email",          limit: 255
-    t.text     "address",        limit: 65535
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.string   "student_number",  limit: 20,  default: "",    null: false
+    t.string   "username",        limit: 30,  default: "",    null: false
+    t.string   "first_name",      limit: 30,  default: "",    null: false
+    t.string   "last_name",       limit: 30,  default: "",    null: false
+    t.string   "profile_picture", limit: 255
+    t.string   "gender",          limit: 255
+    t.date     "dob"
+    t.string   "email",           limit: 60,  default: "",    null: false
+    t.string   "address_1",       limit: 255, default: "",    null: false
+    t.string   "address_2",       limit: 255, default: "",    null: false
+    t.string   "city",            limit: 50
+    t.string   "country",         limit: 50
+    t.string   "postcode",        limit: 10,  default: "",    null: false
+    t.integer  "status",          limit: 4,   default: 0,     null: false
+    t.boolean  "deleted",         limit: 1,   default: false, null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
   end
 
 end

@@ -11,7 +11,7 @@ class SchedulesController < ApplicationController
     if params[:student_id].present?
       @schedule = Schedule.new(:student_id => params[:student_id])
     else
-      redirect_to @schedule, notice: 'Unauthorized acesss'      
+      redirect_to @schedule, alert: 'Unauthorized acesss'      
     end
   end
 
@@ -22,7 +22,9 @@ class SchedulesController < ApplicationController
     if @schedule.save
       redirect_to @schedule.student, notice: 'Schedule was successfully created.'
     else
-      redirect_to @schedule.student, notice: 'Please fill all the fields correctly.'
+      # redirect_to @schedule.student, notice: 'Please fill all the fields correctly.'
+      params[:student_id] = @schedule.student
+      render :new, alert: 'Please fill all the fields correctly.'
     end    
   end
 

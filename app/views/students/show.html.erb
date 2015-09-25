@@ -61,11 +61,29 @@
     </div>
   </div>
 </div>
+<h3>Email this Shedule</h3>
+<div class="row">
+  <div class="pull-left">
+    <%= form_tag({:action=>"send_schedule_mail"}, method: "post") do %>
+      <%= hidden_field_tag :id,@student.id %>
+      <div class="col-md-6">
+        <div class="input-box"> <i class="sprite icn-email"></i>
+          <%= text_field_tag :email,params[:email] ,placeholder: "Enter Email" , class: "input-xlarge",:size=>"50"%>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <%= submit_tag "Send" ,:class=>"submit-form btn btn-success" %>                             
+      </div>
+    <% end %>
+  </div>
 
-<% if flash[:notice]  %>
-  <%= flash[:notice] %>
-<br><br>
-<% end %>  
+  <% if flash[:notice]  %>
+    <div class="pull-left"><div class="alert alert-success"><%= flash[:notice] %></div></div>
+  <% end %>  
+  <% if flash[:alert]  %>
+    <div class="pull-left"><div class="alert alert-danger"><%= flash[:alert] %></div></div>
+  <% end %>  
+</div>
 <% if @student.schedules.present? %>
   <div class="row user-schedule">
     <div class="col-md-12">
@@ -114,6 +132,9 @@
 
  <div class="row">
     <div class="col-md-12">
+      <div class="button-group pull-left">
+        <%= link_to 'Back', students_path, :class => 'cmn-btn grey' %>
+      </div>
         <div class="button-group pull-right"> 
             <%= link_to 'Add Schedule', new_schedule_path(:student_id => @student.id),:class => 'cmn-btn purple' %>
             <%= link_to 'Edit', edit_student_path(@student), :class => 'cmn-btn grey' %> 

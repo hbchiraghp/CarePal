@@ -42,7 +42,7 @@ class StudentsController < ApplicationController
       StudentMailer.student_schedule(@student,params[:email]).deliver 
       redirect_to @student, notice: 'Email sent successfully.'
     else
-      redirect_to @student, notice: 'Enter valid email.'
+      redirect_to @student, alert: 'Enter valid email.'
     end
   end
 

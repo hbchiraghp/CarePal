@@ -12,7 +12,8 @@ input, textarea, select { font-weight: 400; border-radius: 0px; -moz-border-radi
 li { margin: 0px; padding: 0px; list-style: none; }
 :focus { outline: none; }
 :focus, :active { outline: 0; }
-a, a:visited, a:focus, a:active, a:hover { outline: 0 none !important; }
+a, a:visited, a:focus, a:active, a:hover { outline: 0 none !important; color: #666; background: none; font-weight: bold; }
+a:hover { color: black; }
 input[type="submit"] { -webkit-appearance: none; }
 label { font-weight:normal; }
 ::-webkit-input-placeholder {
@@ -154,7 +155,4 @@ opacity: 0.0; zoom: 1; -webkit-appearance: none;  font-size: 14px; color: #85838
 .user-listing table th { padding:15px 10px; text-align:left; border-bottom: 1px solid #dfdfdf; font-size: 14px; font-weight: 400; color: #707070; }
 .user-listing table td { padding:10px; }
 .user-listing table .custom-chk label { background-position:top 3px left 0;}
-
-
-
-
+a{text-decoration: none}

@@ -17,13 +17,13 @@
 
     <div class="row">
       <div class="col-md-6">
-        <div class="input-box">
-          Student Number: <%=  f.object.student_number %>          
+        <div class="input-box"> <i class="sprite icn-user"></i>
+          <%= f.text_field :username, :placeholder => "Username" %>
         </div>
       </div>
       <div class="col-md-6">
-        <div class="input-box"> <i class="sprite icn-user"></i>
-          <%= f.text_field :username, :placeholder => "Username" %>
+        <div class="input-box" id="stu_num"> 
+            Student Number: <%=  f.object.student_number %>          
         </div>
       </div>
     </div>
@@ -32,7 +32,7 @@
         <div class="input-box"> <i class="sprite icn-user"></i>
           <%= f.text_field :first_name, :placeholder => "First Name" %>
         </div>
-      </div>
+        </div>
       <div class="col-md-6">
         <div class="input-box"> <i class="sprite icn-user"></i>
           <%= f.text_field :last_name, :placeholder => "Last Name" %>
@@ -50,7 +50,8 @@
       </div>
       <div class="col-md-6">
         <div class="input-box">
-            <div class="date-of-birth"><%= f.text_field :dob, :placeholder => "Date Of Birth", :class => 'datepicker' %><i class="datepicker sprite icn-choosedate" style="display:none"></i></div>
+            <div class="date-of-birth"><%= f.text_field :dob, :placeholder => "Date Of Birth", :class => ' picked datepicker' %>
+            <i class="pick datepicker sprite icn-choosedate"></i></div>
           </div>
       </div>
     </div>
@@ -61,11 +62,6 @@
             <%= f.text_area :address_1, :placeholder => "Address1" %>            
         </div>
       </div>
-
-
-       
-
-
 
       <div class="col-md-6">
         <div class="input-box profile-img">
@@ -138,6 +134,8 @@
     var anyWindow = window.URL || window.webkitURL;
     var objectUrl = anyWindow.createObjectURL(fileList[0]);    
     $('#preview-box').html('<img class="profileimg" src="' + objectUrl + '" /> ');
-    //$("#clear").show();
   }
+
+
+  $('.pick').click(function() { $('.datepicker').focus() })
 </script>

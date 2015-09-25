@@ -20,12 +20,12 @@ class SchedulesController < ApplicationController
   end
 
   def create
-    # render text: params and return false
     @schedule = Schedule.new(schedule_params)
     if @schedule.save
       redirect_to @schedule.student, notice: 'Schedule was successfully created.'
     else
-      redirect_to @schedule.student, notice: 'Please fill all the fields correctly.'
+      params[:student_id] = @schedule.student
+      render :new, alert: 'Please fill all the fields correctly.'
     end    
   end
 

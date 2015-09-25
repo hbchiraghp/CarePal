@@ -1,6 +1,7 @@
 <div class="form-container">
   <h2> Students Listing <span></span> </h2>
-  <div class="clearfix"></div>
+  <div class="nnew"><%= link_to 'Add student', new_student_path,:class => "pull-right btn submit"%></div>
+  <div class="clearfix"></div>  
   
   <div class="inner-action">
     <div class="row">
@@ -15,6 +16,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="user-listing">
+        <% if @students.present? %>
             <table class="responsive">
                 <tbody><tr>
                     <!-- <th width="10px">
@@ -56,6 +58,7 @@
                 <% end %>               
             </tbody>
             </table>
+        <% end %>
             
             <%= will_paginate @students %>
             <!-- <nav class="client-list-pagination">
@@ -80,7 +83,6 @@
     </div>
   </div>                  
 </div>
-
 
   
 

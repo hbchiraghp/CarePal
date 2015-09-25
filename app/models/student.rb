@@ -1,19 +1,25 @@
 class Student < ActiveRecord::Base
-	#**** Scopes declaration ******
+
 	
 	mount_uploader :profile_picture, AvatarUploader
 	STUDENTS = Student.pluck(:student_number)
+
+	#**** Assosciations *******
+
 	has_many :schedules
 
+	#**** Scopes declaration ******
 	scope :active, -> { where(deleted: false,status: 1) }
   scope :inactive, -> { where(status: 0,deleted: false) }  
 	scope :deleted, -> { where(deleted: true) }
 
 	#**** Enums declaration ******
+
 	enum status: { active: 0, inactive: 1 }
 	enum gender: { :male => '0' , :female => '1' }
 
 	#**** Validations ******
+
 	validates :email,format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/, message: "Invalid email format" } , uniqueness: true,length: { in: 0..60},on: :create
 	validates :first_name,:last_name,:username,presence: true, length: { in: 0..30 }
 	validates :username, uniqueness: true,on: :create 
@@ -25,6 +31,7 @@ class Student < ActiveRecord::Base
 	validates :city,:country, length: { maximum: 50, too_long: "%{count} characters is the maximum allowed" }  
 
 	#**** Methods ******
+	
 	def initialize(attributes=nil, *args)
   super    
     self.student_number = Student.get_student_number
@@ -38,10 +45,6 @@ class Student < ActiveRecord::Base
   def mark_for_delete!
     update_attribute(:deleted, true)
   end
-
-
-
-
 end
 
 

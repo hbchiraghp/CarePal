@@ -13,3 +13,5 @@
 /tmp
 .ruby-version
 .ruby-gemset
+/public/uploads/*
+/public/assets

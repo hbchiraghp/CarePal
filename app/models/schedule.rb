@@ -1,18 +1,11 @@
-# class DobValidator < ActiveModel::EachValidator
-#   def validate_each(record, attribute, value)
-#     if ((DateTime.parse(value) rescue ArgumentError) == ArgumentError)
-#       record.errors[attribute] << (options[:message] || "please enter a valid date")
-#     end
-#   end
-# end
-
 
 class Schedule < ActiveRecord::Base
-	belongs_to :student
+  #****** Assoscations ***********
+  belongs_to :student
 
-	 validates :start_date,:end_date, :start_time,:end_time, :location, :faculty,:course,:student_id,presence: true
+  #****** Validations ***********
 
-
+  validates :start_date,:end_date, :start_time,:end_time, :location, :faculty,:course,:student_id,presence: true
 end
 
 

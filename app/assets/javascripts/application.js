@@ -13,9 +13,16 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require turbolinks
+//= require jquery.datepair.js
+// require turbolinks
 //= require_tree .
+//= require jquery.timepicker.js
 
  $(function() {
-  jQuery('.datepicker').datepicker();
+  jQuery('.datepicker').datepicker({ dateFormat: 'dd-mm-yy' });
+
+});
+
+ $(function() {
+  jQuery('.timee').timepicker();
 });

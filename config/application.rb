@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 
 module Carepal
   class Application < Rails::Application
+    
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -30,8 +31,8 @@ module Carepal
     :address              => "smtp.gmail.com",
     :port                 => 587,
     :domain               => 'localhost:3000',
-    :user_name            => 'xxxxxxx@gmail.com',
-    :password             => 'xxxxxxx',
+    :user_name            => '****@gmail.com',
+    :password             => '******',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
   end
